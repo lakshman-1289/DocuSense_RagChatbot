@@ -1,4 +1,4 @@
-# 🔭 Orion's Gaze
+# 🔭DocuSense
 
 **A Streamlit-powered RAG Chatbot that lets you chat with your PDFs using Gemini + LangChain.**  
 Upload documents, ask questions, and get context-aware answers — powered by **vector search**, **embeddings**, and **Google Gemini 2.5**.
