@@ -19,7 +19,7 @@ warnings.filterwarnings("ignore")
 logging.getLogger("transformers").setLevel(logging.ERROR)
 load_dotenv()
 
-st.set_page_config(page_title="📚 Orion's Gaze - RAG Chatbot", layout="wide")
+st.set_page_config(page_title="📚 DocuSense - RAG Chatbot", layout="wide")
 
 # ------------------------- Helper Functions -------------------------
 def load_document(uploaded_file):
@@ -97,7 +97,7 @@ def clear_all_state():
 
 # ------------------------- Sidebar -------------------------
 with st.sidebar:
-    st.title("🔭 Orion's Gaze")
+    st.title("🔭 DocuSense")
     st.header("📂 Upload Documents")
 
     st.markdown(
@@ -178,10 +178,10 @@ with st.sidebar:
     st.checkbox(
         "💡 Use Gemini 2.5",
         key="llm_fallback",
-        help="When enabled, Orion combines knowledge from your PDFs with its own understanding for better answers."
+        help="When enabled, DocuSense combines knowledge from your PDFs with its own understanding for better answers."
     )
 
-    st.caption("🧠 Powered by Dileep + Mohan | Orion’s Gaze Edition")
+    st.caption("🧠 Powered by Lakshmana")
 # # ------------------------- Main Chat Section -------------------------
 # st.title("💬 Orion’s Gaze - A hunter focusing intensely to find a specific target")
 # st.write("Ask questions from your uploaded PDFs.")
@@ -245,7 +245,7 @@ with st.sidebar:
 # # st.caption("🚀 Orion’s Gaze | Streamed Gemini responses + optimized FAISS retrieval")
 
 # ------------------------- Main Chat Section -------------------------
-st.title("💬 Orion’s Gaze - A hunter focusing intensely to find a specific target")
+st.title("💬 DocuSense - Document RAG Chatbot")
 st.write("Ask questions from your uploaded PDFs.")
 
 # # --- 1. ADD CHECKBOX FOR LLM FALLBACK ---
@@ -303,7 +303,7 @@ if user_prompt := st.chat_input("Ask your question here..."):
             all_docs = []
             for name in st.session_state.selected_docs:
                 retriever = st.session_state.vectorstores[name].as_retriever(search_kwargs={"k": 15})
-                docs = retriever.get_relevant_documents(user_prompt)
+                docs = retriever.invoke(user_prompt)
                 all_docs.extend(docs)
 
             unique_docs = {doc.page_content: doc for doc in all_docs}.values()
@@ -318,7 +318,7 @@ if user_prompt := st.chat_input("Ask your question here..."):
             if st.session_state.llm_fallback:
                 # ✅ HYBRID MODE PROMPT (Checkbox is ON)
                 prompt = f"""
-            You are a knowledgeable AI assistant called Orion.
+            You are a knowledgeable AI assistant called DocuSense.
             You have access to both the given context from uploaded PDFs and your own general knowledge.
             Use BOTH sources to generate the best possible answer.
             Prioritize facts from the context, but if helpful, expand or clarify using your broader understanding.
